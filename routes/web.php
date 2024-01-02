@@ -3,6 +3,8 @@
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/locale', function () {
+    // App::setLocale($locale);
+    // echo __('website.welcome');
+
+    session()->put('app_locale', 'bn');
+    return redirect()->back();
+ 
+    // ...
+})->name('set.local');
 
 Route::get('/', function () {
     return view('welcome');

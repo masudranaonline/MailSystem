@@ -9,6 +9,7 @@ use App\Mail\OfferCreated;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use App\Jobs\SendMailToAdmin;
 use App\Notifications\OfferCreated as NotificationsOfferCreated;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,8 +49,14 @@ class OfferController extends Controller
         ];
         $offer = Offer::create($data);
 
-        $user = User::find(1);
-        $user->notify(new \App\Notifications\OfferCreated($offer));
+        // $user = User::find(1);
+
+
+
+        SendMailToAdmin::dispatch($offer);
+        // $user->notify(new \App\Notifications\OfferCreated($offer));
+
+
         return back();
     }
 
